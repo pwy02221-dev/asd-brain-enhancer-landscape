@@ -406,7 +406,7 @@ const REG_ELEMENTS = [
 // Cell type x study heatmap
 // Values: 0=unmeasured, 1=measured/no effect, 2=significant, 3=major impact
 const CELL_TYPES = ['L2/3 흥분성 뉴런','L4 흥분성 뉴런','L5/6 흥분성 뉴런','미세아교세포','성상교세포','억제 뉴런(PV)','억제 뉴런(SST)','억제 뉴런(VIP)','희소돌기교세포','OPC'];
-const STUDY_LABELS = ['Voineagu\n2011','Sun\n2016','Nardone\n2017','Koberstein\n2018','Velmeshev\n2019','Ramaswami\n2020','Wamsley\n2024','Eyring\n2025'];
+const STUDY_LABELS = ['Voineagu 2011','Sun 2016','Nardone 2017','Koberstein 2018','Velmeshev 2019','Ramaswami 2020','Wamsley 2024','Eyring 2025'];
 
 const HEATMAP_DATA = [
   [0,0,0,0,3,2,3,3], // L2/3
@@ -478,7 +478,7 @@ function showDetail(panelId, html){
 // Section 1: Bubble Chart
 function initBubble(){
   const techColors = {bulk:'#ef5350', epigenetic:'#42a5f5', singlecell:'#66bb6a', multiomics:'#ffb74d'};
-  const resLabels = {1:'벌크 전사체',2:'벌크 후성유전학',3:'세포유형 분리',4:'싱글셀 전사체',5:'싱글셀 멀티오믹스',6:'싱글셀+공간'};
+  const resLabels = {1:'벌크 전사체',2:'벌크 후성유전',3:'세포유형 분리',4:'싱글셀 전사체',5:'싱글셀 멀티옴',6:'싱글셀+공간'};
 
   const trace = {
     type:'scatter', mode:'markers+text',
@@ -499,7 +499,8 @@ function initBubble(){
 
   const layout = Object.assign({}, darkLayout, {
     xaxis:{...darkLayout.xaxis, title:'연도', range:[2009,2027], dtick:2},
-    yaxis:{...darkLayout.yaxis, title:'해상도 수준', range:[0,7], tickvals:[1,2,3,4,5,6], ticktext:Object.values(resLabels)},
+    yaxis:{...darkLayout.yaxis, title:'해상도 수준', range:[0,7], tickvals:[1,2,3,4,5,6], ticktext:Object.values(resLabels), automargin:true},
+    margin:{l:140,r:30,t:40,b:60},
     showlegend:false
   });
 
@@ -594,9 +595,9 @@ function initHeatmap(){
 
   const layout = Object.assign({}, darkLayout, {
     annotations: annotations,
-    xaxis:{...darkLayout.xaxis, side:'top', tickangle:0},
+    xaxis:{...darkLayout.xaxis, side:'top', tickangle:-35, automargin:true},
     yaxis:{...darkLayout.yaxis, autorange:'reversed', automargin:true},
-    margin:{l:160,r:30,t:80,b:30}
+    margin:{l:140,r:40,t:100,b:30}
   });
 
   Plotly.newPlot('heatmap-chart',[trace],layout,plotConfig);
